@@ -1,7 +1,15 @@
 from common.models import Category, Product
 from common.serializers import CategorySerializer, ProductSerializer
+from common.elasticsearch import ProductDocument
 
 from rest_framework import generics, permissions, parsers
+
+from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
+from django_elasticsearch_dsl_drf.filter_backends import (
+    FilteringFilterBackend,
+    CompoundSearchFilterBackend,
+)
+
 
 
 #Category
@@ -33,3 +41,15 @@ class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     parser_classes = (parsers.MultiPartParser,)
     queryset = Product.objects.all()
     my_tags = ['Product']
+
+
+#ElasticSearch
+class ProductSearchViewSet(DocumentViewSet):
+    document = ProductDocument
+    serializer_class = ProductSerializer
+    filter_backends = [
+        FilteringFilterBackend,
+        CompoundSearchFilterBackend,
+    ]
+    search_fields = ('name', 'description',)
+    my_tags = ['ElasticSearch']

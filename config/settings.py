@@ -44,14 +44,20 @@ DJANGO_APPS = [
 
 CUSTOM_APPS = [
     'accounts',
-    'common'
+    'common',
 ]
 
 
 THIRD_PARTY_APPS = [
     "phonenumber_field",
     'rest_framework',
-    'drf_yasg'
+    'drf_yasg',
+    
+    # Django Elasticsearch integration
+    'django_elasticsearch_dsl',
+
+    # Django REST framework Elasticsearch integration (this package)
+    'django_elasticsearch_dsl_drf',
 ]
 
 
@@ -91,8 +97,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'product_crud',
+        'USER': 'postgres',
+        'PASSWORD': 'Qwerty123$',
+        'HOST': 'db',
+        'PORT': '5432'
     }
 }
 
@@ -169,4 +179,13 @@ SWAGGER_SETTINGS = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+
+
+INSTALLED_APPS += []
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    },
 }
