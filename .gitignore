@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django related files
+*.log
+*.pot
+*.pyc
+db.sqlite3
+db.sqlite3-journal
+media/
+
+# Ignore Django migrations, you can customize this to match your migrations directory name
+**/migrations/*.py
+**/migrations/*.pyi
+**/migrations/!(__init__).py
+
+# VSCode related files
+.vscode/
+.vscodeignore
+.settings/
+
+# Local development settings
+.env
+env
+.venv
+venv
+
+# Ignore any environment-specific files
+.env.*
+
+# Ignore any compiled Python files
+*.pyc
+
+# Ignore PostgreSQL database backups
+*.bak
