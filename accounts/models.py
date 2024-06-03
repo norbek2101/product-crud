@@ -16,14 +16,6 @@ class BaseModel(models.Model):
         abstract = True 
 
 
-
-class Category(BaseModel):
-    name = models.CharField(max_length=200)
-
-    def __str__(self) -> str:
-        return self.name
-
-
 class User(AbstractBaseUser, PermissionsMixin, BaseModel):
     phone_number = PhoneNumberField(db_index=True, unique=True)
     full_name = models.CharField(max_length=250, null=True, blank=True)
