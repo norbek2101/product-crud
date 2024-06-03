@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from datetime import timedelta
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,19 +27,22 @@ SECRET_KEY = 'django-insecure-!n87ff%xm4glj26m+c&8c*v2)sfbx0w=chw&k9c-c+h*0%u0j^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 
 
 # Application definition
 
 DJANGO_APPS = [
-    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
 ]
 
 
@@ -50,15 +54,11 @@ CUSTOM_APPS = [
 
 THIRD_PARTY_APPS = [
     "phonenumber_field",
-    'rest_framework',
-    'drf_yasg',
-    
-    # Django Elasticsearch integration
-    'django_elasticsearch_dsl',
-
-    # Django REST framework Elasticsearch integration (this package)
-    'django_elasticsearch_dsl_drf',
+    'drf_yasg', 
 ]
+
+
+INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
 
 
 MIDDLEWARE = [
@@ -90,6 +90,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'es:9200'
+    },
+}
 
 
 # Database
@@ -182,10 +189,12 @@ SIMPLE_JWT = {
 }
 
 
-INSTALLED_APPS += []
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'jwt-auth'
 
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'localhost:9200'
-    },
-}
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
